@@ -10,6 +10,7 @@ export function middleware(req: any) {
   }
 
   const ip = req.headers.get("x-forwarded-for") || req.ip || "unknown";
+  console.log(ip,"ip from the incomming the request");
   const now = Date.now();
   let count = 1;
 
