@@ -5,6 +5,24 @@ const WINDOW = 60000;
 const requestsMap = new Map<string, { count: number; startTime: number }>();
 
 export function middleware(req: any) {
+  const { pathname } = req.nextUrl;
+
+  if (pathname === "/") {
+    const country = req.headers.get('x-vercel-ip-country'); // Default to 'IN'
+
+    console.log(`User from country: ${country}`);
+    const countryRedirects: Record<string, string> = {
+      US: '/us',
+      UK: '/uk',
+      IN: '/india',
+    };
+
+    // Redirect if a mapping exists for the country
+    if (countryRedirects[country]) {
+      return NextResponse.redirect(new URL(countryRedirects[country], req.url));
+    }
+  }
+
   console.log(req,"req")
   const allowAccess = req.cookies.get("allowAccess")?.value;
 
@@ -48,5 +66,5 @@ export function middleware(req: any) {
 }
 
 export const config = {
-  matcher: ["/ratelimit", "/edge-check"],
+  matcher: ["/ratelimit", "/edge-check","/"],
 };
