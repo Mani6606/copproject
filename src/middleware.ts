@@ -5,9 +5,19 @@ const WINDOW = 60000;
 const requestsMap = new Map<string, { count: number; startTime: number }>();
 
 export function middleware(req: any) {
+  console.log(req,"req")
+  const allowAccess = req.cookies.get("allowAccess")?.value;
+
+  if (req.nextUrl.pathname.startsWith("/edge-check")) {
+    if (allowAccess !== "true") {
+      return new NextResponse("Unauthorized - Access Denied", { status: 401 });
+    }
+  }
+  
   if (req.nextUrl.pathname !== "/ratelimit") {
     return NextResponse.next();
   }
+  
 
   const ip = req.headers.get("x-forwarded-for") || req.ip || "unknown";
   console.log(ip,"ip from the incomming the request");
@@ -38,5 +48,5 @@ export function middleware(req: any) {
 }
 
 export const config = {
-  matcher: "/ratelimit",
+  matcher: ["/ratelimit", "/edge-check"],
 };
