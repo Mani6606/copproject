@@ -1,3 +1,4 @@
+import TestClient from "../api-test-component"
 import { headers } from "next/headers";
 
 export default async function TestRateLimit() {
@@ -8,6 +9,9 @@ export default async function TestRateLimit() {
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>Rate Limit Test</h1>
       <p>You have made {requestCount} requests in this window.</p>
+      <div style={{ textAlign: "center", marginTop: "500px" }}>
+       <TestClient />
+      </div>
     </div>
   );
 }

@@ -8,8 +8,8 @@ export function middleware(req: any) {
   const { pathname } = req.nextUrl;
   
   if (pathname === "/a-page") {
-    const url = new URL("/b-page", req.url);
-    return NextResponse.redirect(url);
+    // const url = new URL("/b-page", req.url);
+    return NextResponse.rewrite("www.whatuni.com");
   }
   
   if (pathname === "/c-page") {
