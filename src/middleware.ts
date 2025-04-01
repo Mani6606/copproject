@@ -8,10 +8,10 @@ export function middleware(req: any) {
   const { pathname } = req.nextUrl;
   
   if (pathname === "/a-page") {
-    // const url = new URL("/b-page", req.url);
-    return NextResponse.rewrite("www.whatuni.com");
+    const url = new URL("/b-page", req.url);
+    return NextResponse.redirect(url);
   }
-  
+    
   if (pathname === "/c-page") {
 
     const response = NextResponse.rewrite(new URL("/b-page", req.url));
@@ -83,5 +83,5 @@ export function middleware(req: any) {
 }
 
 export const config = {
-  matcher: ["/ratelimit", "/edge-check", "/", "/api/test","/b-page", "/a-page", "/c-page"],
+  matcher: ["/ratelimit", "/edge-check", "/", "/api/test","/b-page", "/a-page","c-page"],
 };
