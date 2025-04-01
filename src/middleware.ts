@@ -83,5 +83,5 @@ export function middleware(req: any) {
 }
 
 export const config = {
-  matcher: ["/ratelimit", "/edge-check", "/", "/api/test","/b-page", "/a-page","c-page"],
+  matcher: ["/ratelimit", "/edge-check", "/", "/api/test","/b-page", "/a-page","/c-page"],
 };
